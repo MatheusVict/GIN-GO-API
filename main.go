@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/MatheusVict/User-Register-GO/src/configuration/database/mongodb"
 	"github.com/MatheusVict/User-Register-GO/src/controller"
 	"github.com/MatheusVict/User-Register-GO/src/controller/routes"
 	"github.com/MatheusVict/User-Register-GO/src/model/service"
@@ -17,6 +18,8 @@ func main() {
 		log.Fatalln("Error on .env file")
 	}
 	fmt.Println(os.Getenv("TEST"))
+
+	mongodb.InitConnection(os.Getenv("MONGODB_CONNECTION_URI"))
 
 	servic := service.NewUserDomainService()
 	userController := controller.NewUserControllerInterface(servic)
