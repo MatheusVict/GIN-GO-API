@@ -3,8 +3,15 @@ package model
 import (
 	"crypto/md5"
 	"encoding/hex"
-	"github.com/MatheusVict/User-Register-GO/src/configuration/errorsHandle"
 )
+
+type UserDomainInterface interface {
+	GetEmail() string
+	GetPassword() string
+	GetName() string
+	GetAge() int8
+	EncryptPassword()
+}
 
 func NewUserDomain(
 	email,
@@ -12,7 +19,7 @@ func NewUserDomain(
 	name string,
 	age int8,
 ) UserDomainInterface {
-	return &UserDomain{
+	return &userDomain{
 		email,
 		password,
 		name,
@@ -20,23 +27,29 @@ func NewUserDomain(
 	}
 }
 
-type UserDomain struct {
-	Email    string
-	Password string
-	Name     string
+type userDomain struct {
+	email    string
+	password string
+	name     string
 	Age      int8
 }
 
-func (user *UserDomain) EncryptPassword() {
-	hash := md5.New()
-	defer hash.Reset()
-	hash.Write([]byte(user.Password))
-	user.Password = hex.EncodeToString(hash.Sum(nil))
+func (user *userDomain) GetEmail() string {
+	return user.email
+}
+func (user *userDomain) GetPassword() string {
+	return user.password
+}
+func (user *userDomain) GetName() string {
+	return user.name
+}
+func (user *userDomain) GetAge() int8 {
+	return user.Age
 }
 
-type UserDomainInterface interface {
-	CreateUser() *errorsHandle.ErrorsHandle
-	UpdateUser(string) *errorsHandle.ErrorsHandle
-	FindUser(string) (*UserDomain, *errorsHandle.ErrorsHandle)
-	DeleteUser(string) *errorsHandle.ErrorsHandle
+func (user *userDomain) EncryptPassword() {
+	hash := md5.New()
+	defer hash.Reset()
+	hash.Write([]byte(user.password))
+	user.password = hex.EncodeToString(hash.Sum(nil))
 }

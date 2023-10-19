@@ -4,6 +4,7 @@ import (
 	"github.com/MatheusVict/User-Register-GO/src/configuration/validation"
 	"github.com/MatheusVict/User-Register-GO/src/controller/model/request"
 	"github.com/MatheusVict/User-Register-GO/src/model"
+	service2 "github.com/MatheusVict/User-Register-GO/src/model/service"
 	"github.com/gin-gonic/gin"
 	"log"
 	"net/http"
@@ -31,7 +32,9 @@ func CreateUser(ctx *gin.Context) {
 		userRequest.Age,
 	)
 
-	if err := domain.CreateUser(); err != nil {
+	services := service2.NewUserDomainService()
+
+	if err := services.CreateUser(domain); err != nil {
 		ctx.JSON(err.Code, err)
 		return
 	}
