@@ -2,10 +2,10 @@ package controller
 
 import "github.com/gin-gonic/gin"
 
-func FindUserById(ctx *gin.Context) {
+func (user *userControllerInterface) FindUserByID(ctx *gin.Context) {
 
 }
 
-func FindUserByEmail(ctx *gin.Context) {
+func (user *userControllerInterface) FindUserByEmail(ctx *gin.Context) {
 
 }
