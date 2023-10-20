@@ -6,9 +6,17 @@ import (
 	"log"
 )
 
-func (u *userDomainService) CreateUser(userDomain model.UserDomainInterface) *errorsHandle.ErrorsHandle {
+func (u *userDomainService) CreateUser(
+	userDomain model.UserDomainInterface,
+) (model.UserDomainInterface, *errorsHandle.ErrorsHandle) {
 	log.Println("CreateUser")
 	userDomain.EncryptPassword()
 	log.Println(userDomain.GetPassword())
-	return nil
+
+	userDomainRepository, err := u.repository.CreateUser(userDomain)
+	if err != nil {
+		log.Println("Error on createUser mode: ", err)
+		return nil, err
+	}
+	return userDomainRepository, nil
 }

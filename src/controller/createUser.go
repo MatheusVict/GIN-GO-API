@@ -15,10 +15,12 @@ var (
 )
 
 func (user *userControllerInterface) CreateUser(ctx *gin.Context) {
+	log.Println("CreateUserController init")
 	var userRequest request.UserRequest
 
 	if err := ctx.ShouldBindJSON(&userRequest); err != nil {
 		restErr := validation.ValidateUserError(err)
+		log.Println("Error on validate user")
 		ctx.JSON(restErr.Code, restErr)
 		return
 	}
@@ -32,10 +34,12 @@ func (user *userControllerInterface) CreateUser(ctx *gin.Context) {
 		userRequest.Age,
 	)
 
-	if err := user.service.CreateUser(domain); err != nil {
+	domainResult, err := user.service.CreateUser(domain)
+	if err != nil {
+		log.Println("error on create user in service to controller")
 		ctx.JSON(err.Code, err)
 		return
 	}
 
-	ctx.JSON(http.StatusOK, view.ConvertDomainToResponse(domain))
+	ctx.JSON(http.StatusOK, view.ConvertDomainToResponse(domainResult))
 }
