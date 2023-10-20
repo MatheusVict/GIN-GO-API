@@ -11,6 +11,9 @@ type userDomain struct {
 func (ud *userDomain) SetID(id string) {
 	ud.id = id
 }
+func (ud *userDomain) GetID() string {
+	return ud.id
+}
 func (user *userDomain) GetEmail() string {
 	return user.email
 }

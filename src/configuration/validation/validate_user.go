@@ -47,7 +47,7 @@ func ValidateUserError(
 
 		return errorsHandle.NewBadRequestValidationError("Some fields are invalids", errorsCauses)
 	} else {
-		return errorsHandle.NewBadRequestError("Error typing to convert fields")
+		return errorsHandle.NewBadRequestError("Error typing to converter fields")
 	}
 
 }
