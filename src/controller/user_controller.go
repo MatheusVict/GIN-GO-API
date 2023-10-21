@@ -19,6 +19,7 @@ type UserControllerInterface interface {
 	CreateUser(ctx *gin.Context)
 	UpdateUser(ctx *gin.Context)
 	DeleteUser(ctx *gin.Context)
+	LoginUser(ctx *gin.Context)
 }
 
 type userControllerInterface struct {

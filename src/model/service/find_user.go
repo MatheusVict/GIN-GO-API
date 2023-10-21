@@ -20,3 +20,11 @@ func (user *userDomainService) FindUserByEmailService(
 
 	return user.repository.FindUserByEmail(email)
 }
+func (user *userDomainService) findUserByEmailAndPasswordService(
+	email string,
+	password string,
+) (model.UserDomainInterface, *errorsHandle.ErrorsHandle) {
+	log.Println("Init on FindUserByEmailService")
+
+	return user.repository.FindUserByEmailAndPassword(email, password)
+}

@@ -76,3 +76,38 @@ func (ur *userRepository) FindUserByID(
 	log.Println("User email: ", userEntity.ID.Hex())
 	return converter.ConvertEntityToDomain(userEntity), nil
 }
+
+func (ur *userRepository) FindUserByEmailAndPassword(
+	email string,
+	password string,
+) (model.UserDomainInterface, *errorsHandle.ErrorsHandle) {
+	log.Println("Init findUserByEmailAndPassword repository")
+	collectionName := os.Getenv(MONGODB_USER_DB)
+
+	collection := ur.databaseConnection.Collection(collectionName)
+
+	userEntity := &entity.UserEntity{}
+	ctx := context.Background()
+	filter := bson.D{
+		{"email", email},
+		{"password", password},
+	}
+
+	err := collection.FindOne(ctx, filter).Decode(userEntity)
+
+	if err != nil {
+		if err == mongo.ErrNoDocuments {
+			errorMessage := "User not found with this email"
+			log.Println("User not found: ", errorMessage)
+			return nil, errorsHandle.NewNotFoundError(errorMessage)
+		}
+
+		errorMessage := "Error trying to find user by email and password"
+		log.Println("Error on search an user: ", err)
+		return nil, errorsHandle.NewInternalServerError(errorMessage)
+	}
+
+	log.Println("User find with successfully")
+	log.Println("User email: ", userEntity.Email)
+	return converter.ConvertEntityToDomain(userEntity), nil
+}
