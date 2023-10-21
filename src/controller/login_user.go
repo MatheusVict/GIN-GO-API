@@ -28,12 +28,14 @@ func (user *userControllerInterface) LoginUser(ctx *gin.Context) {
 		userRequest.Password,
 	)
 
-	domainResult, err := user.service.LoginUserService(domain)
+	domainResult, token, err := user.service.LoginUserService(domain)
 	if err != nil {
 		log.Println("error on login user in service to controller")
 		ctx.JSON(err.Code, err)
 		return
 	}
+
+	ctx.Header("Authorization", token)
 
 	ctx.JSON(http.StatusOK, view.ConvertDomainToResponse(domainResult))
 }

@@ -1,5 +1,7 @@
 package model
 
+import "github.com/MatheusVict/User-Register-GO/src/configuration/errorsHandle"
+
 type UserDomainInterface interface {
 	GetEmail() string
 	GetPassword() string
@@ -10,6 +12,7 @@ type UserDomainInterface interface {
 
 	EncryptPassword()
 	GetJSONValue() (string, error)
+	GenerateToken() (string, *errorsHandle.ErrorsHandle)
 }
 
 func NewUserDomain(

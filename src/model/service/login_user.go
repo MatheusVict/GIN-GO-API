@@ -8,15 +8,20 @@ import (
 
 func (u *userDomainService) LoginUserService(
 	userDomain model.UserDomainInterface,
-) (model.UserDomainInterface, *errorsHandle.ErrorsHandle) {
+) (model.UserDomainInterface, string, *errorsHandle.ErrorsHandle) {
 	log.Println("LoginUser")
 	userDomain.EncryptPassword()
 
 	user, err := u.findUserByEmailAndPasswordService(userDomain.GetEmail(), userDomain.GetPassword())
 
 	if err != nil {
-		return nil, err
+		return nil, "", err
 	}
 
-	return user, nil
+	token, err := user.GenerateToken()
+	if err != nil {
+		return nil, "", err
+	}
+
+	return user, token, nil
 }
