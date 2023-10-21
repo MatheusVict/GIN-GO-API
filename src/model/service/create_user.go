@@ -6,7 +6,7 @@ import (
 	"log"
 )
 
-func (u *userDomainService) CreateUser(
+func (u *userDomainService) CreateUserService(
 	userDomain model.UserDomainInterface,
 ) (model.UserDomainInterface, *errorsHandle.ErrorsHandle) {
 	log.Println("CreateUser")

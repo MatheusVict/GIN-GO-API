@@ -34,7 +34,7 @@ func (user *userControllerInterface) CreateUser(ctx *gin.Context) {
 		userRequest.Age,
 	)
 
-	domainResult, err := user.service.CreateUser(domain)
+	domainResult, err := user.service.CreateUserService(domain)
 	if err != nil {
 		log.Println("error on create user in service to controller")
 		ctx.JSON(err.Code, err)

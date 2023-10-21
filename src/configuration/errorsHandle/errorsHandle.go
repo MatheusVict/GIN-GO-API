@@ -43,6 +43,14 @@ func NewBadRequestValidationError(message string, causes []Causes) *ErrorsHandle
 	}
 }
 
+func NewNotFoundError(message string) *ErrorsHandle {
+	return &ErrorsHandle{
+		Message: message,
+		Err:     "not found",
+		Code:    http.StatusNotFound,
+	}
+}
+
 func NewInternalServerError(message string) *ErrorsHandle {
 	return &ErrorsHandle{
 		Message: message,
