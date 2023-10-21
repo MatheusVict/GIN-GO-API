@@ -51,6 +51,14 @@ func NewNotFoundError(message string) *ErrorsHandle {
 	}
 }
 
+func NewForbiddenError(message string) *ErrorsHandle {
+	return &ErrorsHandle{
+		Message: message,
+		Err:     "forbidden",
+		Code:    http.StatusForbidden,
+	}
+}
+
 func NewInternalServerError(message string) *ErrorsHandle {
 	return &ErrorsHandle{
 		Message: message,

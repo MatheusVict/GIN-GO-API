@@ -97,9 +97,9 @@ func (ur *userRepository) FindUserByEmailAndPassword(
 
 	if err != nil {
 		if err == mongo.ErrNoDocuments {
-			errorMessage := "User not found with this email"
+			errorMessage := "Email or password invalid"
 			log.Println("User not found: ", errorMessage)
-			return nil, errorsHandle.NewNotFoundError(errorMessage)
+			return nil, errorsHandle.NewForbiddenError(errorMessage)
 		}
 
 		errorMessage := "Error trying to find user by email and password"
