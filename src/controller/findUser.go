@@ -1,9 +1,7 @@
 package controller
 
 import (
-	"fmt"
 	"github.com/MatheusVict/User-Register-GO/src/configuration/errorsHandle"
-	"github.com/MatheusVict/User-Register-GO/src/model"
 	"github.com/MatheusVict/User-Register-GO/src/view"
 	"github.com/gin-gonic/gin"
 	"go.mongodb.org/mongo-driver/bson/primitive"
@@ -14,14 +12,6 @@ import (
 
 func (user *userControllerInterface) FindUserByID(ctx *gin.Context) {
 	log.Println("Init FindUserByID on controller")
-
-	userAuth, err := model.VerifyToken(ctx.Request.Header.Get("Authorization"))
-	if err != nil {
-		ctx.JSON(err.Code, err)
-		return
-	}
-
-	log.Println(fmt.Sprintf("User token: %s", userAuth))
 
 	userId := ctx.Param("userId")
 
