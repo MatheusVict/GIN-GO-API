@@ -1,6 +1,6 @@
 # Gin user authentication API
 
-This an API Golang with Gin, that makes jwt authentication and user crud using facade and SOLID pattern
+This an API Golang with Gin, that makes jwt authentication and user crud using hexagonal architecture and SOLID pattern
 
 ### Technologies used
 
